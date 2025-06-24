@@ -9,17 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: "Calm Neutral" - A base of warm neutrals (#F8F5F2) with a supportive, muted gold/tan (#D4BFA4) for primary actions and accents. Navy blue (#0A2342) is introduced for interactive hover states to provide clear contrast and engagement. -->
-    <!-- Application Structure Plan: The SPA is structured as an interactive dashboard, allowing users to explore different facets of the profile at will. A persistent top navigation bar (Home, Services, About & Expertise, AI & Growth, AI Trajectory, Approach, ROI) allows for non-linear exploration. The structure is designed to answer a potential client's questions in a logical sequence: Who are you? (Home) -> What can you do for me? (Services, presented vaguely yet clearly with augmentation focus) -> Who is Russ and what's his core expertise? (About & Expertise, with a link to more work/LinkedIn) -> How is AI shaping the future of business? (AI & Growth, now with interactive flip cards) -> What does AI-driven growth look like over time? (AI Trajectory) -> How do you work? (Approach) -> What's the value? (ROI). This structure balances introducing core offerings first with highlighting advanced AI concepts, empowering users to find the information they need most. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Service Offerings -> Goal: Organize & Detail with Intrigue -> Viz/Method: Interactive Tabbed Interface with Unicode Icons -> Interaction: User clicks tabs (Workflow Augmentation, Systems Enhancement, etc.) to view concise, benefit-driven capabilities, encouraging them to book a call for specifics -> Justification: Removes specific app names, focuses on the high-level augmentation theme, and uses abstract Unicode visuals as requested to maintain intrigue while providing clarity.
-        - Report Info: Client Engagement Methodology -> Goal: Build trust & clarify process -> Viz/Method: Styled HTML/CSS Flowchart -> Interaction: Subtle hover effects on steps -> Justification: Visualizes the client journey simply and effectively without needing heavy libraries.
-        - Report Info: Value Proposition (Time/Money Saved) -> Goal: Quantify the benefit of augmentation -> Viz/Method: Interactive ROI Calculator with a Chart.js Bar Chart -> Interaction: User adjusts sliders for hours saved and billable rate to see tangible financial impact -> Justification: Required by the prompt and perfectly aligns with the brand mission. It makes the abstract value of "augmentation" concrete and compelling.
-        - Report Info: Technology Stack (summarized) & Russ's Background -> Goal: Provide credibility & outline expertise with external link -> Viz/Method: Textual overview with a list of key technology categories and a button link -> Interaction: Button click to external profile/work page -> Justification: Reintegrates removed "Tech Stack" information into a dedicated "About" section and adds a clear call to action for further exploration of Russ's background/portfolio.
-        - Report Info: AI's Role in Growth (Updated Section) -> Goal: Educate and engage on AI's impact with higher visual appeal -> Viz/Method: Interactive Flip Cards with numbered titles and icons -> Interaction: Hover to flip, revealing concise explanations on the back -> Justification: Addresses the user's request for more interactive, eye-catching, and simplistic presentation of this content, emphasizing "augmentation" and "inevitability" with visual flair and improved card height.
-        - Report Info: AI Growth Trajectory (New Section) -> Goal: Visualize the historical and projected impact of AI on business growth -> Viz/Method: Line Chart (Chart.js) -> Interaction: None (static historical/projected view) -> Justification: Directly fulfills the request to show a graph of growth over 3 phases since GPT's introduction, providing a compelling visual narrative of AI's increasing influence and inevitability.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         html {
             scroll-behavior: smooth;
@@ -115,7 +104,6 @@
 </head>
 <body class="text-slate-800">
 
-    <!-- Header & Navigation -->
     <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
             <a href="#home" class="font-bold text-xl accent-text">Russ</a>
@@ -133,7 +121,6 @@
 
     <main class="container mx-auto px-4 sm:px-6 lg:px-8">
 
-        <!-- Home Section -->
         <section id="home" class="py-20 text-center">
             <h1 class="text-4xl md:text-6xl font-bold text-slate-900 leading-tight">
                 <span class="accent-text">Augment</span> Your Operations.
@@ -146,7 +133,6 @@
             <a href="https://cal.com/russvn/aiaudit" target="_blank" class="mt-8 inline-block navy-primary-bg text-white font-bold py-4 px-10 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Book a Free Discovery Call</a>
         </section>
 
-        <!-- Services Section -->
         <section id="services" class="py-16 bg-white rounded-2xl shadow-lg">
             <div class="text-center mb-12 px-6">
                 <h2 class="text-3xl font-bold">Core Services & Capabilities</h2>
@@ -203,13 +189,14 @@
             </div>
         </section>
 
-        <!-- About Russ & Core Expertise Section -->
-        <section id="about-expertise" class="py-16 bg-white rounded-2xl shadow-lg">
+        <section id="about-expertise" class="my-16 py-16 bg-white rounded-2xl shadow-lg">
             <div class="text-center mb-12 px-6">
                 <h2 class="text-3xl font-bold">About Russ & Core Expertise</h2>
                 <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
                     My background combines formal training in critical thinking with years of hands-on experience in tech innovation, systems administration, marketing, self-development (NLP/Life Coaching certified), and coding. This blend brings both technical rigor and creative, practical solutions to every project.
                 </p>
+                <a href="https://github.com/russ-bytes" target="_blank" class="mt-8 mb-10 inline-block navy-primary-bg text-white font-bold py-3 px-8 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Learn More</a>
+
                 <h4 class="font-semibold text-xl mt-8 mb-4">Key Areas of Expertise:</h4>
                 <div class="flex flex-wrap justify-center gap-4 text-slate-700">
                     <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Workflow Enhancement</span>
@@ -221,14 +208,9 @@
                     <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Lead Generation Systems</span>
                     <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Secure Data Management</span>
                 </div>
-                <div class="mt-10">
-                    <a href="https://russ-bytes.github.io/Profile/" target="_blank" class="inline-block navy-primary-bg text-white font-bold py-3 px-8 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Explore More</a>
-                    <!-- This link can be updated to your actual LinkedIn profile or a dedicated portfolio page. -->
                 </div>
-            </div>
         </section>
 
-        <!-- AI & Growth Section (Flip Cards) -->
         <section id="ai-growth" class="py-16">
             <div class="text-center mb-12 px-6">
                 <h2 class="text-3xl font-bold">The Inevitable Augmentation: How AI Fuels Growth</h2>
@@ -237,12 +219,10 @@
                 </p>
             </div>
             <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-                <!-- Flip Card 1 -->
                 <div class="flip-card cursor-pointer">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <div class="flip-card-icon">&#128161;</div> <!-- Lightbulb icon -->
-                            <div class="text-4xl font-bold mb-4 accent-text">01</div>
+                            <div class="flip-card-icon">&#128161;</div> <div class="text-4xl font-bold mb-4 accent-text">01</div>
                             <h3 class="text-xl font-semibold mb-2 text-center">Intelligent Content Synthesis</h3>
                         </div>
                         <div class="flip-card-back">
@@ -252,12 +232,10 @@
                     </div>
                 </div>
 
-                <!-- Flip Card 2 -->
                 <div class="flip-card cursor-pointer">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <div class="flip-card-icon">&#9881;</div> <!-- Gear icon -->
-                            <div class="text-4xl font-bold mb-4 accent-text">02</div>
+                            <div class="flip-card-icon">&#9881;</div> <div class="text-4xl font-bold mb-4 accent-text">02</div>
                             <h3 class="text-xl font-semibold mb-2 text-center">Predictive Operational Efficiency</h3>
                         </div>
                         <div class="flip-card-back">
@@ -267,12 +245,10 @@
                     </div>
                 </div>
 
-                <!-- Flip Card 3 -->
                 <div class="flip-card cursor-pointer">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <div class="flip-card-icon">&#128065;</div> <!-- Eye icon -->
-                            <div class="text-4xl font-bold mb-4 accent-text">03</div>
+                            <div class="flip-card-icon">&#128065;</div> <div class="text-4xl font-bold mb-4 accent-text">03</div>
                             <h3 class="text-xl font-semibold mb-2 text-center">Proactive System Oversight</h3>
                         </div>
                         <div class="flip-card-back">
@@ -284,7 +260,6 @@
             </div>
         </section>
 
-        <!-- AI Growth Trajectory Section -->
         <section id="ai-trajectory" class="py-16 bg-white rounded-2xl shadow-lg">
             <div class="text-center mb-12 px-6">
                 <h2 class="text-3xl font-bold">The Augmentation Trajectory: AI's Impact on Growth</h2>
@@ -313,7 +288,6 @@
             </div>
         </section>
 
-        <!-- ROI Calculator Section -->
         <section id="roi" class="py-16">
             <div class="text-center mb-12 px-6">
                 <h2 class="text-3xl font-bold">See Your Return on Augmentation</h2>
@@ -337,7 +311,6 @@
             </div>
         </section>
         
-        <!-- Approach Section -->
         <section id="approach" class="py-16 bg-white rounded-2xl shadow-lg">
             <div class="text-center mb-12 px-6">
                 <h2 class="text-3xl font-bold">My Approach to Augmentation</h2>
@@ -361,7 +334,6 @@
             </div>
         </section>
 
-        <!-- Final CTA Section -->
         <section class="py-20 text-center bg-white rounded-2xl shadow-lg mt-10">
             <h2 class="text-3xl font-bold text-slate-900 mb-6">Ready to Reclaim Your Time and Amplify Your Business?</h2>
             <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
