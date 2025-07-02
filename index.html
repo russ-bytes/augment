@@ -6,6 +6,7 @@
     <title>Russ | Interactive Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,505 +16,457 @@
         }
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #F8F5F2;
+            background-color: #111827;
+            color: #d1d5db; /* text-gray-300 */
         }
-        .chart-container {
-            position: relative;
+        #particles-js {
+            position: fixed;
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(145deg, #1f2937, #111827);
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+        .card {
+            background-color: rgba(31, 41, 55, 0.5); /* bg-gray-800/50 */
+            border: 1px solid #4b5563; /* border-gray-600 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1.5rem; /* p-6 */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            border-color: #38bdf8; /* hover:border-sky-400 */
+            transform: translateY(-5px);
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(56, 189, 248, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        .card:hover::before {
+            left: 100%;
+        }
+        .accent-text {
+            color: #38bdf8; /* text-sky-400 */
+        }
+        .cta-button {
+            background-color: #0ea5e9; /* bg-sky-500 */
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 2rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 14px 0 rgba(14, 165, 233, 0.39);
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            background-color: #0284c7; /* hover:bg-sky-600 */
+            transform: scale(1.05);
         }
         .nav-link {
             transition: color 0.3s ease;
+            color: #d1d5db;
         }
         .nav-link:hover {
-            color: #0A2342; /* Navy blue on hover for navigation links */
+            color: #38bdf8;
         }
-        .tech-pill {
-            transition: all 0.3s ease;
-        }
-        .accent-bg { background-color: #D4BFA4; }
-        .accent-text { color: #D4BFA4; }
-        .accent-border { border-color: #D4BFA4; }
-        /* New navy blue colors for contrast */
-        .navy-primary-bg { background-color: #0A2342; }
-        .navy-text { color: #0A2342; }
-        .navy-primary-bg-hover:hover { background-color: #1A3A63; } /* Slightly lighter navy for hover */
-
-        /* Flip Card Specific Styles */
         .flip-card {
             perspective: 1000px;
-            height: 250px; /* Increased height for more presence */
+            height: 280px;
             width: 100%;
         }
-
         .flip-card-inner {
             position: relative;
             width: 100%;
             height: 100%;
             text-align: center;
-            transition: transform 0.6s;
+            transition: transform 0.7s;
             transform-style: preserve-3d;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border-radius: 0.5rem; /* rounded-lg */
         }
-
         .flip-card:hover .flip-card-inner {
             transform: rotateY(180deg);
         }
-
         .flip-card-front, .flip-card-back {
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden; /* Safari */
+            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 1.5rem; /* p-6 */
-            border-radius: 0.5rem; /* rounded-lg */
-            border: 1px solid #e2e8f0; /* border-slate-200 */
+            padding: 1.5rem;
+            border-radius: 0.75rem;
         }
-
         .flip-card-front {
-            background-color: #FFFFFF; /* bg-white */
-            color: #333333;
+            background-color: rgba(31, 41, 55, 0.5);
+            border: 1px solid #4b5563;
         }
-
         .flip-card-back {
-            background-color: #0A2342; /* navy-primary-bg */
-            color: #FFFFFF;
+            background-color: #0ea5e9;
+            color: #ffffff;
             transform: rotateY(180deg);
+            border: 1px solid #38bdf8;
         }
         .flip-card-icon {
-            font-size: 3rem; /* Large icon size */
-            margin-bottom: 0.5rem; /* Space between icon and number */
-            color: #D4BFA4; /* Accent color for the icon */
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: #38bdf8;
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(4px);
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-container {
+            background-color: #1f2937;
+            border-radius: 0.75rem;
+            border: 1px solid #4b5563;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            width: 95%;
+            height: 90%;
+            max-width: 1024px;
+            display: flex;
+            flex-direction: column;
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #4b5563;
+        }
+        .modal-body {
+            flex-grow: 1;
+            position: relative;
+        }
+        .modal-iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            border-bottom-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+        }
+        .modal-close-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .modal-close-btn:hover {
+            color: #ffffff;
+        }
+        .modal-loader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            background-color: #1f2937;
+            z-index: 1;
+        }
+        body.modal-open {
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body class="antialiased">
+    <div id="particles-js"></div>
 
-    <header class="bg-white/80 backdrop-blur-sm sticky top-0 z-40 shadow-sm">
-        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+    <header class="bg-gray-900/80 backdrop-blur-sm sticky top-0 z-40 shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
             <a href="#home" class="font-bold text-xl accent-text">Russ</a>
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#services" class="nav-link font-medium text-slate-600">Services</a>
-                <a href="#about-expertise" class="nav-link font-medium text-slate-600">About & Expertise</a>
-                <a href="#ai-growth" class="nav-link font-medium text-slate-600">AI & Growth</a>
-                <a href="#ai-trajectory" class="nav-link font-medium text-slate-600">AI Trajectory</a>
-                <a href="#roi" class="nav-link font-medium text-slate-600">ROI Calculator</a>
-                <a href="#approach" class="nav-link font-medium text-slate-600">Approach</a>
+                <a href="#services" class="nav-link font-medium">Services</a>
+                <a href="#about-expertise" class="nav-link font-medium">About & Expertise</a>
+                <a href="#ai-growth" class="nav-link font-medium">AI & Growth</a>
+                <a href="#roi" class="nav-link font-medium">ROI</a>
+                <a href="#approach" class="nav-link font-medium">Approach</a>
             </div>
-            <a href="https://cal.com/russvn/aiaudit" target="_blank" class="hidden md:inline-block navy-primary-bg text-white font-bold py-2 px-5 rounded-lg shadow-md navy-primary-bg-hover transition-colors">Book a Call</a>
+            <button class="open-modal-button hidden md:inline-block cta-button !py-2 !px-5">Book a Call</button>
         </nav>
     </header>
 
-    <main class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
         <section id="home" class="py-20 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-slate-900 leading-tight">
+            <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">
                 <span class="accent-text">Augment</span> Your Operations.
                 <br>
                 Amplify Your Impact.
             </h1>
-            <p class="mt-6 text-lg text-slate-600 max-w-3xl mx-auto">
+            <p class="mt-6 text-lg text-gray-300 max-w-3xl mx-auto">
                 I'm Russ, an Augmentation Consultant & Systems Enhancer. I leverage a unique blend of critical thinking and technical expertise to build robust systems that eliminate bottlenecks, streamline workflows, and empower you to focus on what matters most.
             </p>
-            <a href="https://cal.com/russvn/aiaudit" target="_blank" class="mt-8 inline-block navy-primary-bg text-white font-bold py-4 px-10 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Book a Free Discovery Call</a>
+            <button class="open-modal-button mt-8 inline-block cta-button !py-4 !px-10">Book a Free Discovery Call</button>
         </section>
 
-        <section id="services" class="py-16 bg-white rounded-2xl shadow-lg">
+        <!-- All other sections remain the same -->
+         <section id="services" class="py-16 card mb-16">
             <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">Core Services & Capabilities</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">This section details the primary ways I can help enhance your operations. I design and implement holistic systems tailored to your specific needs, focusing on efficiency, security, and scalability. Discover how targeted augmentation can transform your business.</p>
+                <h2 class="text-3xl font-bold text-white">Core Services & Capabilities</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">This section details the primary ways I can help enhance your operations. I design and implement holistic systems tailored to your specific needs, focusing on efficiency, security, and scalability. Discover how targeted augmentation can transform your business.</p>
             </div>
             <div class="max-w-5xl mx-auto">
-                <div class="mb-8 flex flex-wrap justify-center border-b border-slate-200">
-                    <button data-tab="augmentation" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base accent-text accent-border border-b-2">Workflow Augmentation</button>
-                    <button data-tab="systems" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-slate-500 hover:text-navy-text">Systems & Infrastructure</button>
-                    <button data-tab="tooling" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-slate-500 hover:text-navy-text">Custom Tooling</button>
-                    <button data-tab="operations" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-slate-500 hover:text-navy-text">Marketing & Operations</button>
+                <div class="mb-8 flex flex-wrap justify-center border-b border-gray-700">
+                    <button data-tab="augmentation" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base accent-text border-b-2 border-sky-400">Workflow Augmentation</button>
+                    <button data-tab="systems" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-gray-400 hover:text-white">Systems & Infrastructure</button>
+                    <button data-tab="tooling" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-gray-400 hover:text-white">Custom Tooling</button>
+                    <button data-tab="operations" class="service-tab-btn font-semibold py-3 px-5 text-sm md:text-base text-gray-400 hover:text-white">Marketing & Operations</button>
                 </div>
 
                 <div id="augmentation" class="service-tab-content grid md:grid-cols-2 gap-6 px-6">
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#9881;</span> Intelligent Workflow Design</h4>
-                        <p class="text-slate-600">Elevate your operational efficiency with bespoke solutions that seamlessly connect disparate processes, transforming complex tasks into fluid, interconnected digital experiences.</p>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128279;</span> Unified System Integration</h4>
-                        <p class="text-slate-600">Bridge the gaps between your various platforms and services. I engineer custom integrations that create a cohesive digital ecosystem, enabling effortless data flow and enhanced communication.</p>
-                    </div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">✧</span> Intelligent Workflow Design</h4><p class="text-gray-400">Elevate your operational efficiency with bespoke solutions that seamlessly connect disparate processes, transforming complex tasks into fluid, interconnected digital experiences.</p></div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">🔗</span> Unified System Integration</h4><p class="text-gray-400">Bridge the gaps between your various platforms and services. I engineer custom integrations that create a cohesive digital ecosystem, enabling effortless data flow and enhanced communication.</p></div>
                 </div>
                 <div id="systems" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#9729;</span> Robust Cloud Foundations</h4>
-                        <p class="text-slate-600">Establish secure, scalable, and cost-effective cloud environments designed to support your evolving business needs. I build resilient digital foundations that power your operations.</p>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128274;</span> Privacy-Centric Deployments</h4>
-                        <p class="text-slate-600">Gain full control over your data with secure, self-managed solutions. I specialize in deploying enhanced applications that prioritize your privacy and provide complete ownership of your digital assets.</p>
-                    </div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">☁️</span> Robust Cloud Foundations</h4><p class="text-gray-400">Establish secure, scalable, and cost-effective cloud environments designed to support your evolving business needs. I build resilient digital foundations that power your operations.</p></div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">🔒</span> Privacy-Centric Deployments</h4><p class="text-gray-400">Gain full control over your data with secure, self-managed solutions. I specialize in deploying enhanced applications that prioritize your privacy and provide complete ownership of your digital assets.</p></div>
                 </div>
                 <div id="tooling" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128295;</span> Bespoke Digital Utilities</h4>
-                        <p class="text-slate-600">From intelligent data extraction to advanced content processing, I craft custom digital tools tailored to your unique challenges, designed to streamline specific, complex tasks and enhance your capabilities.</p>
-                    </div>
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128161;</span> Personalized Intelligence Solutions</h4>
-                        <p class="text-slate-600">Transform raw information into actionable insights with personalized systems. Whether it's consolidating research or generating concise summaries, these solutions augment your knowledge and decision-making.</p>
-                    </div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">🛠️</span> Bespoke Digital Utilities</h4><p class="text-gray-400">From intelligent data extraction to advanced content processing, I craft custom digital tools tailored to your unique challenges, designed to streamline specific, complex tasks and enhance your capabilities.</p></div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">💡</span> Personalized Intelligence Solutions</h4><p class="text-gray-400">Transform raw information into actionable insights with personalized systems. Whether it's consolidating research or generating concise summaries, these solutions augment your knowledge and decision-making.</p></div>
                 </div>
-                 <div id="operations" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128100;</span> Client Relationship Amplification</h4>
-                        <p class="text-slate-600">Enhance every touchpoint of your client journey, from initial scheduling to ongoing engagement. I build integrated systems that elevate your client experience and nurture lasting relationships.</p>
-                    </div>
-                     <div class="bg-slate-50 p-6 rounded-lg">
-                        <h4 class="font-bold text-lg mb-2"><span class="mr-2 text-accent-text">&#128200;</span> Growth Amplification Systems</h4>
-                        <p class="text-slate-600">Design and implement intelligent frameworks for lead capture, data enrichment, and outreach campaigns. These systems are crafted to optimize your growth efforts and maximize conversion.</p>
-                    </div>
+                <div id="operations" class="service-tab-content hidden grid md:grid-cols-2 gap-6 px-6">
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">🤝</span> Client Relationship Amplification</h4><p class="text-gray-400">Enhance every touchpoint of your client journey, from initial scheduling to ongoing engagement. I build integrated systems that elevate your client experience and nurture lasting relationships.</p></div>
+                    <div class="bg-gray-900/50 p-6 rounded-lg"><h4 class="font-bold text-lg mb-2 text-white"><span class="mr-2 accent-text">📈</span> Growth Amplification Systems</h4><p class="text-gray-400">Design and implement intelligent frameworks for lead capture, data enrichment, and outreach campaigns. These systems are crafted to optimize your growth efforts and maximize conversion.</p></div>
                 </div>
             </div>
         </section>
 
-        <section id="about-expertise" class="my-16 py-16 bg-white rounded-2xl shadow-lg">
+        <section id="about-expertise" class="my-16 py-16 card">
             <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">About Russ & Core Expertise</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                    My background combines formal training in critical thinking with years of hands-on experience in tech innovation, systems administration, marketing, self-development (NLP/Life Coaching certified), and coding. This blend brings both technical rigor and creative, practical solutions to every project.
-                </p>
-                <a href="https://github.com/russ-bytes" target="_blank" class="mt-8 mb-10 inline-block navy-primary-bg text-white font-bold py-3 px-8 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Learn More</a>
-
-                <h4 class="font-semibold text-xl mt-8 mb-4">Key Areas of Expertise:</h4>
-                <div class="flex flex-wrap justify-center gap-4 text-slate-700">
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Workflow Enhancement</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Cloud Infrastructure</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Containerization & Self-Hosting</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Custom Scripting (Python)</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">API Integration</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Operational Dashboards</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Lead Generation Systems</span>
-                    <span class="bg-slate-200 py-2 px-5 rounded-full shadow-sm">Secure Data Management</span>
+                <h2 class="text-3xl font-bold text-white">About Russ & Core Expertise</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">My background combines formal training in critical thinking with years of hands-on experience in tech innovation, systems administration, marketing, self-development (NLP/Life Coaching certified), and coding. This blend brings both technical rigor and creative, practical solutions to every project.</p>
+                <a href="https://russ-bytes.github.io/Profile" target="_blank" class="mt-8 mb-10 inline-block cta-button">Learn More</a>
+                <h4 class="font-semibold text-xl mt-8 mb-4 text-white">Key Areas of Expertise:</h4>
+                <div class="flex flex-wrap justify-center gap-3 text-gray-200">
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Workflow Enhancement</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Cloud Infrastructure</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Containerization & Self-Hosting</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Custom Scripting (Python)</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">API Integration</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Operational Dashboards</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Lead Generation Systems</span>
+                    <span class="bg-gray-700 py-2 px-4 rounded-full shadow-sm">Secure Data Management</span>
                 </div>
-                </div>
+            </div>
         </section>
 
         <section id="ai-growth" class="py-16">
             <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">The Inevitable Augmentation: How AI Fuels Growth</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                    In today's rapidly evolving business landscape, Artificial Intelligence is not just a tool; it's a fundamental shift in how operations are optimized and growth is accelerated. Explore the core pillars of AI-driven enhancement.
-                </p>
+                <h2 class="text-3xl font-bold text-white">The Inevitable Augmentation: How AI Fuels Growth</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">In today's rapidly evolving business landscape, Artificial Intelligence is not just a tool; it's a fundamental shift in how operations are optimized and growth is accelerated. Explore the core pillars of AI-driven enhancement.</p>
             </div>
-            <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 px-6">
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="flip-card-icon">&#128161;</div> <div class="text-4xl font-bold mb-4 accent-text">01</div>
-                            <h3 class="text-xl font-semibold mb-2 text-center">Intelligent Content Synthesis</h3>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="text-xl font-semibold mb-2 text-white">Intelligent Content Synthesis</h3>
-                            <p class="text-sm text-white text-center">AI transforms information overload into actionable insights by processing vast data, summarizing content, and assisting in new material creation. This augments research and content capabilities.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="flip-card-icon">&#9881;</div> <div class="text-4xl font-bold mb-4 accent-text">02</div>
-                            <h3 class="text-xl font-semibold mb-2 text-center">Predictive Operational Efficiency</h3>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="text-xl font-semibold mb-2 text-white">Predictive Operational Efficiency</h3>
-                            <p class="text-sm text-white text-center">Beyond simple scheduling, AI intelligently anticipates needs, optimizes resource allocation, and proactively manages workflows, boosting operational throughput and responsiveness.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flip-card cursor-pointer">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="flip-card-icon">&#128065;</div> <div class="text-4xl font-bold mb-4 accent-text">03</div>
-                            <h3 class="text-xl font-semibold mb-2 text-center">Proactive System Oversight</h3>
-                        </div>
-                        <div class="flip-card-back">
-                            <h3 class="text-xl font-semibold mb-2 text-white">Proactive System Oversight</h3>
-                            <p class="text-sm text-white text-center">AI-powered 'digital twins' monitor the health and performance of your enhanced systems, identifying anomalies before they impact your business, ensuring continuous operation and critical oversight.</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 px-6">
+                <div class="flip-card cursor-pointer"><div class="flip-card-inner"><div class="flip-card-front"><div class="flip-card-icon">💡</div><div class="text-4xl font-bold mb-4 accent-text">01</div><h3 class="text-xl font-semibold mb-2 text-white text-center">Intelligent Content Synthesis</h3></div><div class="flip-card-back"><h3 class="text-xl font-semibold mb-2">Intelligent Content Synthesis</h3><p class="text-sm text-center">AI transforms information overload into actionable insights by processing vast data, summarizing content, and assisting in new material creation. This augments research and content capabilities.</p></div></div></div>
+                <div class="flip-card cursor-pointer"><div class="flip-card-inner"><div class="flip-card-front"><div class="flip-card-icon">⚙️</div><div class="text-4xl font-bold mb-4 accent-text">02</div><h3 class="text-xl font-semibold mb-2 text-white text-center">Predictive Operational Efficiency</h3></div><div class="flip-card-back"><h3 class="text-xl font-semibold mb-2">Predictive Operational Efficiency</h3><p class="text-sm text-center">Beyond simple scheduling, AI intelligently anticipates needs, optimizes resource allocation, and proactively manages workflows, boosting operational throughput and responsiveness.</p></div></div></div>
+                <div class="flip-card cursor-pointer"><div class="flip-card-inner"><div class="flip-card-front"><div class="flip-card-icon">👁️</div><div class="text-4xl font-bold mb-4 accent-text">03</div><h3 class="text-xl font-semibold mb-2 text-white text-center">Proactive System Oversight</h3></div><div class="flip-card-back"><h3 class="text-xl font-semibold mb-2">Proactive System Oversight</h3><p class="text-sm text-center">AI-powered 'digital twins' monitor the health and performance of your enhanced systems, identifying anomalies before they impact your business, ensuring continuous operation and critical oversight.</p></div></div></div>
             </div>
         </section>
 
-        <section id="ai-trajectory" class="py-16 bg-white rounded-2xl shadow-lg">
+        <section id="ai-trajectory" class="py-16 card mt-16">
             <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">The Augmentation Trajectory: AI's Impact on Growth</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
-                    Witness the transformative power of AI on business growth since its mainstream introduction. This chart illustrates three distinct phases of operational enhancement and productivity gains, projecting the inevitable acceleration of AI-driven impact.
-                </p>
+                <h2 class="text-3xl font-bold text-white">The Augmentation Trajectory: AI's Impact on Growth</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Witness the transformative power of AI on business growth since its mainstream introduction. This chart illustrates three distinct phases of operational enhancement and productivity gains, projecting the inevitable acceleration of AI-driven impact.</p>
             </div>
             <div class="max-w-4xl mx-auto px-6">
-                <div class="chart-container">
-                    <canvas id="aiGrowthChart"></canvas>
-                </div>
-                <div class="grid md:grid-cols-3 gap-6 mt-8 text-center text-slate-600">
-                    <div>
-                        <h4 class="font-bold accent-text mb-2">Phase 1: Emergence (2022)</h4>
-                        <p class="text-sm">Initial public understanding and cautious experimentation with foundational AI models. Early adopters began to see potential for minor workflow enhancements.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold accent-text mb-2">Phase 2: Accelerated Adoption (2023-2024)</h4>
-                        <p class="text-sm">Widespread recognition of AI's capabilities led to broader integration, driving significant gains in efficiency across various business functions and critical thinking applications.</p>
-                    </div>
-                    <div>
-                        <h4 class="font-bold accent-text mb-2">Phase 3: Inevitable Amplification (2025 Onward)</h4>
-                        <p class="text-sm">AI becomes deeply embedded in core operations, leading to exponential growth, novel solutions, and a fundamental reshaping of market dynamics through pervasive augmentation.</p>
-                    </div>
+                <div class="relative h-80"><canvas id="aiGrowthChart"></canvas></div>
+                <div class="grid md:grid-cols-3 gap-6 mt-8 text-center text-gray-400">
+                    <div><h4 class="font-bold accent-text mb-2">Phase 1: Emergence (2022)</h4><p class="text-sm">Initial public understanding and cautious experimentation with foundational AI models. Early adopters began to see potential for minor workflow enhancements.</p></div>
+                    <div><h4 class="font-bold accent-text mb-2">Phase 2: Accelerated Adoption (2023-2024)</h4><p class="text-sm">Widespread recognition of AI's capabilities led to broader integration, driving significant gains in efficiency across various business functions and critical thinking applications.</p></div>
+                    <div><h4 class="font-bold accent-text mb-2">Phase 3: Inevitable Amplification (2025 Onward)</h4><p class="text-sm">AI becomes deeply embedded in core operations, leading to exponential growth, novel solutions, and a fundamental reshaping of market dynamics through pervasive augmentation.</p></div>
                 </div>
             </div>
         </section>
 
-        <section id="roi" class="py-16">
+        <section id="roi" class="py-16 card mt-16">
             <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">See Your Return on Augmentation</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Even a small operational enhancement has a massive impact. Use this interactive calculator to see the potential value you can reclaim by augmenting your manual tasks.</p>
+                <h2 class="text-3xl font-bold text-white">See Your Return on Augmentation</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">Even a small operational enhancement has a massive impact. Use this interactive calculator to see the potential value you can reclaim by augmenting your manual tasks.</p>
             </div>
-            <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+            <div class="bg-gray-900/50 p-8 rounded-2xl max-w-4xl mx-auto">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div>
-                        <label for="hoursSlider" class="block font-semibold text-lg mb-2">Hours Saved Per Week: <span id="hoursValue" class="accent-text font-bold">5</span></label>
-                        <input id="hoursSlider" type="range" min="1" max="20" value="5" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-                        
-                        <label for="rateInput" class="block font-semibold text-lg mt-6 mb-2">Your Average Billable Rate ($/hour):</label>
-                        <input id="rateInput" type="number" value="150" class="w-full p-2 border border-slate-300 rounded-lg">
+                        <label for="hoursSlider" class="block font-semibold text-lg mb-2 text-white">Hours Saved Per Week: <span id="hoursValue" class="accent-text font-bold">5</span></label>
+                        <input id="hoursSlider" type="range" min="1" max="20" value="5" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-text">
+                        <label for="rateInput" class="block font-semibold text-lg mt-6 mb-2 text-white">Your Average Billable Rate ($/hour):</label>
+                        <input id="rateInput" type="number" value="150" class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:ring-2 focus:ring-sky-500 focus:outline-none">
                     </div>
-                    <div>
-                        <div class="chart-container">
-                            <canvas id="roiChart"></canvas>
-                        </div>
-                    </div>
+                    <div class="relative h-64"><canvas id="roiChart"></canvas></div>
                 </div>
             </div>
         </section>
         
-        <section id="approach" class="py-16 bg-white rounded-2xl shadow-lg">
+        <section id="approach" class="py-16 mt-16">
             <div class="text-center mb-12 px-6">
-                <h2 class="text-3xl font-bold">My Approach to Augmentation</h2>
-                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">My process is built on clarity, collaboration, and delivering tangible value from day one. This flowchart outlines the typical client engagement, ensuring a transparent and effective partnership.</p>
+                <h2 class="text-3xl font-bold text-white">My Approach to Augmentation</h2>
+                <p class="mt-4 text-gray-400 max-w-2xl mx-auto">My process is built on clarity, collaboration, and delivering tangible value from day one. This flowchart outlines the typical client engagement, ensuring a transparent and effective partnership.</p>
             </div>
             <div class="relative flex flex-col md:flex-row justify-around items-center space-y-8 md:space-y-0 md:space-x-4 px-6">
-                <div class="text-center bg-slate-50 p-6 rounded-lg shadow-sm w-full md:w-56 transition-transform hover:scale-105">
-                    <div class="accent-text font-bold text-lg mb-2">1. Discovery</div>
-                    <p class="text-sm text-slate-500">An open, honest call to understand your challenges and goals. No sales pitch, just clarity.</p>
-                </div>
-                <div class="hidden md:block absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-1/4 h-px bg-slate-300"></div>
-                <div class="text-center bg-slate-50 p-6 rounded-lg shadow-sm w-full md:w-56 transition-transform hover:scale-105">
-                    <div class="accent-text font-bold text-lg mb-2">2. Value First</div>
-                    <p class="text-sm text-slate-500">Often, I provide a small, free augmentation or report to demonstrate capability and build trust before any commitment.</p>
-                </div>
-                <div class="hidden md:block absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/2 w-1/4 h-px bg-slate-300"></div>
-                <div class="text-center bg-slate-50 p-6 rounded-lg shadow-sm w-full md:w-56 transition-transform hover:scale-105">
-                    <div class="accent-text font-bold text-lg mb-2">3. Build & Deploy</div>
-                    <p class="text-sm text-slate-500">I build your tailored system, prioritizing your control and security. Credentials always remain with you.</p>
-                </div>
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-700"></div>
+                <div class="relative text-center card w-full md:w-64"><div class="accent-text font-bold text-2xl mb-2">1</div><h3 class="text-white font-semibold text-lg">Discovery</h3><p class="text-sm text-gray-400 mt-2">An open, honest call to understand your challenges and goals. No sales pitch, just clarity.</p></div>
+                <div class="relative text-center card w-full md:w-64"><div class="accent-text font-bold text-2xl mb-2">2</div><h3 class="text-white font-semibold text-lg">Value First</h3><p class="text-sm text-gray-400 mt-2">Often, I provide a small, free augmentation or report to demonstrate capability and build trust before any commitment.</p></div>
+                <div class="relative text-center card w-full md:w-64"><div class="accent-text font-bold text-2xl mb-2">3</div><h3 class="text-white font-semibold text-lg">Build & Deploy</h3><p class="text-sm text-gray-400 mt-2">I build your tailored system, prioritizing your control and security. Credentials always remain with you.</p></div>
             </div>
         </section>
 
-        <section class="py-20 text-center bg-white rounded-2xl shadow-lg mt-10">
-            <h2 class="text-3xl font-bold text-slate-900 mb-6">Ready to Reclaim Your Time and Amplify Your Business?</h2>
-            <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-                Sometimes, the biggest leaps forward begin with a simple conversation. If you're tired of operational bottlenecks and ready to explore how targeted augmentation can transform your workflow, let's chat. No pressure, just a human conversation to explore what's truly possible for your business.
-            </p>
-            <a href="https://cal.com/russvn/aiaudit" target="_blank" class="mt-8 inline-block navy-primary-bg text-white font-bold py-4 px-10 rounded-lg shadow-lg navy-primary-bg-hover transition-transform transform hover:scale-105">Book Your Free Discovery Call</a>
+        <section class="py-20 text-center card mt-16">
+            <h2 class="text-3xl font-bold text-white mb-6">Ready to Reclaim Your Time and Amplify Your Business?</h2>
+            <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">Sometimes, the biggest leaps forward begin with a simple conversation. If you're tired of operational bottlenecks and ready to explore how targeted augmentation can transform your workflow, let's chat. No pressure, just a human conversation to explore what's truly possible for your business.</p>
+            <button class="open-modal-button mt-8 inline-block cta-button !py-4 !px-10">Book Your Free Discovery Call</button>
         </section>
+
     </main>
     
-    <footer class="text-center py-10 mt-10 border-t border-slate-200">
-        <p class="text-slate-600">&copy; 2024 Russ - Augmentation Consultant</p>
-        <p class="text-sm text-slate-500 mt-2">Connecting with you online</p>
+    <footer class="text-center py-10 mt-16 border-t border-gray-700 relative z-10">
+        <p class="text-gray-400">&copy; 2025 Russ - Augmentation Consultant</p>
+        <p class="text-sm text-gray-500 mt-2">Connecting with you online</p>
     </footer>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3 class="text-white font-semibold text-lg">Book a Discovery Call</h3>
+                <button id="modal-close-button" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modal-loader" class="modal-loader">Loading Booking Page...</div>
+                <iframe id="modal-iframe" class="modal-iframe" title="Booking Page"></iframe>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Service Tabs functionality
+            // --- Particles.js Animation ---
+            particlesJS('particles-js', { "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#38bdf8" }, "shape": { "type": "circle" }, "opacity": { "value": 0.3, "random": true, "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true }, "line_linked": { "enable": true, "distance": 150, "color": "#4b5563", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } } }, "retina_detect": true });
+
+            // --- Service Tabs functionality ---
             const serviceTabButtons = document.querySelectorAll('.service-tab-btn');
             const serviceTabContents = document.querySelectorAll('.service-tab-content');
-
             serviceTabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const tab = button.dataset.tab;
-
                     serviceTabButtons.forEach(btn => {
-                        btn.classList.remove('accent-text', 'accent-border', 'border-b-2');
-                        btn.classList.add('text-slate-500');
+                        btn.classList.remove('accent-text', 'border-sky-400', 'border-b-2');
+                        btn.classList.add('text-gray-400');
                     });
-                    button.classList.add('accent-text', 'accent-border', 'border-b-2');
-                    button.classList.remove('text-slate-500');
-
+                    button.classList.add('accent-text', 'border-sky-400', 'border-b-2');
+                    button.classList.remove('text-gray-400');
                     serviceTabContents.forEach(content => {
                         content.id === tab ? content.classList.remove('hidden') : content.classList.add('hidden');
                     });
                 });
             });
 
-            // ROI Chart
-            const slider = document.getElementById('hoursSlider');
-            const rateInput = document.getElementById('rateInput');
-            const hoursValue = document.getElementById('hoursValue');
-            const ctx = document.getElementById('roiChart').getContext('2d');
+            // --- Charting ---
+            const createChart = (ctx, type, data, options) => new Chart(ctx, { type, data, options });
+            const roiCtx = document.getElementById('roiChart').getContext('2d');
             let roiChart;
-
-            function calculateROI() {
-                const hours = parseInt(slider.value);
-                const rate = parseInt(rateInput.value) || 0;
-                hoursValue.textContent = hours;
-                const weeklySavings = hours * rate;
-                const monthlySavings = weeklySavings * 4.33;
-                const yearlySavings = monthlySavings * 12;
-                return { weeklySavings, monthlySavings, yearlySavings };
-            }
-            
-            function updateChart() {
-                const { weeklySavings, monthlySavings, yearlySavings } = calculateROI();
-                const chartData = [weeklySavings, monthlySavings, yearlySavings];
-
-                if (roiChart) {
-                    roiChart.data.datasets[0].data = chartData;
-                    roiChart.update();
-                } else {
-                    roiChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                            labels: ['Weekly', 'Monthly', 'Yearly'],
-                            datasets: [{
-                                label: 'Potential Value Reclaimed ($)',
-                                data: chartData,
-                                backgroundColor: [
-                                    'rgba(212, 191, 164, 0.7)',
-                                    'rgba(212, 191, 164, 0.85)',
-                                    'rgba(212, 191, 164, 1)'
-                                ],
-                                borderColor: 'rgba(212, 191, 164, 1)',
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: { y: { beginAtZero: true, ticks: { callback: value => '$' + value } } },
-                            plugins: {
-                                legend: { display: false },
-                                title: { display: true, text: 'Value of Reclaimed Time', font: { size: 16 } },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.dataset.label || '';
-                                            if (label) { label += ': '; }
-                                            if (context.parsed.y !== null) {
-                                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-            
-            slider.addEventListener('input', updateChart);
-            rateInput.addEventListener('input', updateChart);
-            updateChart();
-
-            // AI Growth Chart
-            const aiGrowthCtx = document.getElementById('aiGrowthChart').getContext('2d');
-            new Chart(aiGrowthCtx, {
-                type: 'line',
-                data: {
-                    labels: ['2022 (GPT Intro)', '2023 (1 Year Later)', '2024 (2 Years Later)', '2025 (Projected)', '2026 (Projected)'],
+            function updateRoiChart() {
+                const hours = parseInt(document.getElementById('hoursSlider').value);
+                const rate = parseInt(document.getElementById('rateInput').value) || 0;
+                document.getElementById('hoursValue').textContent = hours;
+                const weekly = hours * rate, monthly = weekly * 4.33, yearly = monthly * 12;
+                const chartData = {
+                    labels: ['Weekly', 'Monthly', 'Yearly'],
                     datasets: [{
-                        label: 'Operational Efficiency Index',
-                        data: [100, 130, 200, 350, 550], // Conceptual growth data
-                        borderColor: '#D4BFA4',
-                        backgroundColor: 'rgba(212, 191, 164, 0.2)',
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: '#D4BFA4',
-                        pointBorderColor: '#D4BFA4',
-                        pointRadius: 5,
-                        pointHoverRadius: 7
+                        label: 'Potential Value Reclaimed ($)',
+                        data: [weekly, monthly, yearly],
+                        backgroundColor: ['rgba(56, 189, 248, 0.4)', 'rgba(56, 189, 248, 0.6)', 'rgba(56, 189, 248, 0.8)'],
+                        borderColor: '#38bdf8',
+                        borderWidth: 1
                     }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Efficiency & Impact Index',
-                                color: '#555555'
-                            },
-                            ticks: {
-                                callback: function(value) {
-                                    return value;
-                                }
-                            }
-                        },
-                        x: {
-                            title: {
-                                display: true,
-                                text: 'Year',
-                                color: '#555555'
-                            }
-                        }
-                    },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                title: function(context) {
-                                    return context[0].label;
-                                },
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) { label += ': '; }
-                                    label += context.parsed.y;
-                                    return label;
-                                }
-                            }
-                        },
-                        title: {
-                            display: true,
-                            text: 'Evolution of AI-Driven Operational Efficiency',
-                            font: {
-                                size: 18,
-                                weight: 'bold'
-                            },
-                            color: '#333333'
-                        }
-                    }
+                };
+                const chartOptions = { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#d1d5db', callback: v => '$' + v } }, x: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#d1d5db' } } }, plugins: { legend: { display: false }, title: { display: true, text: 'Value of Reclaimed Time', font: { size: 16 }, color: '#ffffff' }, tooltip: { callbacks: { label: c => `$${new Intl.NumberFormat().format(c.parsed.y)}` } } } };
+                if (roiChart) { roiChart.data = chartData; roiChart.update(); } 
+                else { roiChart = createChart(roiCtx, 'bar', chartData, chartOptions); }
+            }
+            ['input', 'change'].forEach(evt => {
+                document.getElementById('hoursSlider').addEventListener(evt, updateRoiChart);
+                document.getElementById('rateInput').addEventListener(evt, updateRoiChart);
+            });
+            updateRoiChart();
+
+            const aiGrowthCtx = document.getElementById('aiGrowthChart').getContext('2d');
+            createChart(aiGrowthCtx, 'line', {
+                labels: ['2022', '2023', '2024', '2025 (Proj.)', '2026 (Proj.)'],
+                datasets: [{ label: 'Operational Efficiency Index', data: [100, 130, 200, 350, 550], borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.2)', fill: true, tension: 0.4, pointBackgroundColor: '#38bdf8', pointBorderColor: '#fff', pointRadius: 5, pointHoverRadius: 7 }]
+            }, { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#d1d5db' }, title: { display: true, text: 'Efficiency & Impact Index', color: '#d1d5db' } }, x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#d1d5db' }, title: { display: true, text: 'Year', color: '#d1d5db' } } }, plugins: { legend: { display: false } } });
+
+            // --- Modal Logic ---
+            const modal = document.getElementById('booking-modal');
+            const modalIframe = document.getElementById('modal-iframe');
+            const modalLoader = document.getElementById('modal-loader');
+            const openModalButtons = document.querySelectorAll('.open-modal-button');
+            const closeModalButton = document.getElementById('modal-close-button');
+            const bookingUrl = 'https://cal.com/russvn/aiaudit';
+
+            const openModal = () => {
+                document.body.classList.add('modal-open');
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    modal.querySelector('.modal-container').style.transform = 'scale(1)';
+                }, 10);
+                
+                modalLoader.style.display = 'flex';
+                modalIframe.src = ''; // Clear previous src
+                modalIframe.src = bookingUrl;
+            };
+
+            const closeModal = () => {
+                modal.style.opacity = '0';
+                modal.querySelector('.modal-container').style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+                    modalIframe.src = 'about:blank'; // Stop iframe loading
+                }, 300);
+            };
+
+            modalIframe.onload = () => {
+                modalLoader.style.display = 'none';
+            };
+            
+            openModalButtons.forEach(button => button.addEventListener('click', openModal));
+            closeModalButton.addEventListener('click', closeModal);
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
                 }
             });
         });
